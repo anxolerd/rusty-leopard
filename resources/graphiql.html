@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="graphql,graphiql" />
+
+    <title>GraphiQL</title>
+
+    <script src="//use.typekit.net/pea2oar.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+  
+    <link rel="stylesheet" media="screen" href="https://cdn.jsdelivr.net/graphql-toolbox/1.0.1/graphiql.min.css">
+	<style>
+	@font-face {
+	  font-family: 'Glyphicons Halflings';
+	  src: url(https://cdn.jsdelivr.net/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.eot);
+	  src: url(https://cdn.jsdelivr.net/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.eot) format("embedded-opentype"), url(https://cdn.jsdelivr.net/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.woff2) format("woff2"), url(https://cdn.jsdelivr.net/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.woff) format("woff"), url(https://cdn.jsdelivr.net/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.ttf) format("truetype"), url(https://cdn.jsdelivr.net/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.svg) format("svg");
+	}
+	</style>
+    
+    <script src="https://cdn.jsdelivr.net/graphql-toolbox/1.0.1/graphiql.min.js" type="text/javascript"></script>
+
+  </head>
+  <body>
+    <div id="graphiql-tool"></div>
+    <script>
+		graphiql.bootstrap({
+		  defaultUrl: 'http://localhost:3000/graphql',
+		  defaultQuery: '',
+		  defaultVariables: ''
+		});
+    </script>
+
+  </body>
+</html>

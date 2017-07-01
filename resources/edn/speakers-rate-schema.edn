@@ -1,0 +1,37 @@
+{:objects
+ {:Speaker {:description "A speaker at conference"
+            :fields {:id {:type (non-null Int)} 
+                     :firstName {:type String}
+                     :lastName {:type String}
+                     :rating {:type Int}
+                     :talks {:type (list :Talk)
+                             :resolve :resolve-speaker-talks}
+                     :reviews {:type (list :Review)
+                               :resolve :resolve-speaker-reviews}}}
+  :Talk {:description "A speaker's talk at conference"
+         :fields {:id {:type (non-null Int)}
+                  :speaker {:type (non-null :Speaker)
+                            :resolve :resolve-talk-speaker}
+                  :name {:type (non-null String)}
+                  :videoUrl {:type String}
+                  :slidesUrl {:type String}
+                  :reviews {:type (list :Review)
+                            :resolve :resolve-talk-reviews}}}
+  :Review {:description "Review of the speaker's talk"
+           :fields {:id {:type (non-null Int)}
+                    :talk {:type (non-null :Talk)
+                           :resolve :resolve-review-talk}
+                    :rating {:type (non-null Int)}
+                    :comment {:type String}}}}
+ :queries
+ {:talk {:type :Talk
+         :description "Retrieve a single talk by its id"
+         :args {:id {:type (non-null Int)}}
+         :resolve :resolve-talk}
+  :speaker {:type :Speaker
+            :description "Retrieve a single speaker by their id"
+            :args {:id {:type (non-null Int)}}
+            :resolve :resolve-speaker}
+  :speakers {:type (list :Speaker)
+             :description "Retrieve all speakers"
+             :resolve :resolve-speakers}}}
