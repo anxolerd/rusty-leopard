@@ -13,7 +13,7 @@
       edn/read-string
       (attach-resolvers {:resolve-talk db/resolve-talk
                          :resolve-speaker db/resolve-speaker
-                         :resolve-speakers (constantly [])
+                         :resolve-speakers db/resolve-speakers
                          :resolve-talk-speaker db/resolve-talk-speaker
                          :resolve-speaker-talks db/resolve-speaker-talks
                          :resolve-speaker-reviews db/resolve-speaker-reviews

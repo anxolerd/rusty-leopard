@@ -51,6 +51,13 @@
   [context args _value]
   (resolve-speaker context {:id (:speaker_id _value)} nil))
 
+(defn resolve-speakers
+  [context args _value]
+  (map 
+    (fn [s] (assoc s :firstName (:first_name s)
+                     :lastName (:last_name s)))
+    (get-speakers)))
+
 (defn resolve-speaker-talks
   [context args _value]
   (check-error (get-speaker-talks {:speaker_id (:id _value)})))

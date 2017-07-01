@@ -12,3 +12,6 @@ SELECT r.id, r.talk_id, r.rating, r.comment FROM talk t JOIN review r ON r.talk_
 
 -- name: get-talk-reviews
 SELECT id, talk_id, rating, comment FROM review WHERE talk_id = :talk_id;
+
+-- name: get-speakers
+SELECT id, first_name, last_name FROM speaker;
