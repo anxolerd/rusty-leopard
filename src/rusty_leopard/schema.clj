@@ -18,5 +18,6 @@
                          :resolve-speaker-talks db/resolve-speaker-talks
                          :resolve-speaker-reviews db/resolve-speaker-reviews
                          :resolve-talk-reviews db/resolve-talk-reviews
-                         :resolve-review-talk db/resolve-review-talk})
+                         :resolve-review-talk db/resolve-review-talk
+                         :resolve-add-speaker db/resolve-add-speaker})
       schema/compile))

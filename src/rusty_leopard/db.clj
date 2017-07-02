@@ -71,3 +71,13 @@
 (defn resolve-review-talk
   [context args _value]
   (resolve-talk context {:id (:talk_id _value)} nil))
+
+(defn resolve-add-speaker
+  [context args _value]
+  (let [speaker_id (-> (add-speaker {:first_name (:firstName args),
+                                     :last_name (:lastName args)})
+                       first
+                       :id)]
+    (assoc {} :id speaker_id
+              :firstName (:firstName args)
+              :lastName (:lastName args))))

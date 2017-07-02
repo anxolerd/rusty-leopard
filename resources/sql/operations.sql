@@ -15,3 +15,6 @@ SELECT id, talk_id, rating, comment FROM review WHERE talk_id = :talk_id;
 
 -- name: get-speakers
 SELECT id, first_name, last_name FROM speaker;
+
+-- name: add-speaker
+INSERT INTO speaker (first_name, last_name) VALUES (:first_name, :last_name) RETURNING id;

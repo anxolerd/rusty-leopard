@@ -34,4 +34,10 @@
             :resolve :resolve-speaker}
   :speakers {:type (list :Speaker)
              :description "Retrieve all speakers"
-             :resolve :resolve-speakers}}}
+             :resolve :resolve-speakers}}
+ :mutations
+ {:speaker {:type :Speaker
+            :description "Create a new speaker"
+            :args {:firstName {:type (non-null String)}
+                   :lastName {:type (non-null String)}}
+            :resolve :resolve-add-speaker}}}
