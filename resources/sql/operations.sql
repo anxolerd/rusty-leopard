@@ -18,3 +18,9 @@ SELECT id, first_name, last_name FROM speaker;
 
 -- name: add-speaker
 INSERT INTO speaker (first_name, last_name) VALUES (:first_name, :last_name) RETURNING id;
+
+-- name: add-talk
+INSERT INTO talk (speaker_id, name, video_url, slides_url) VALUES (:speaker_id, :name, :video_url, :slides_url) RETURNING id;
+
+-- name: add-review
+INSERT INTO review (talk_id, rating, comment) VALUES (:talk_id, :rating, :comment) RETURNING id;

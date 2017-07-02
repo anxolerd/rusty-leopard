@@ -81,3 +81,15 @@
     (assoc {} :id speaker_id
               :firstName (:firstName args)
               :lastName (:lastName args))))
+
+
+(defn resolve-add-talk
+  [context args _value]
+  (let [talk_id (-> (add-talk {:speaker_id (:speakerId args),
+                               :name (:name args),
+                               :video_url (:videoUrl args),
+                               :slides_url (:slidesUrl args)})
+                    first
+                    :id)]
+    (assoc args :id talk_id
+                :speaker_id (:speakerId args))))

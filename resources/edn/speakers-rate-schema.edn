@@ -36,8 +36,15 @@
              :description "Retrieve all speakers"
              :resolve :resolve-speakers}}
  :mutations
- {:speaker {:type :Speaker
+ {:addSpeaker {:type :Speaker
             :description "Create a new speaker"
             :args {:firstName {:type (non-null String)}
                    :lastName {:type (non-null String)}}
-            :resolve :resolve-add-speaker}}}
+            :resolve :resolve-add-speaker}
+  :addTalk {:type :Talk
+         :description "Create a talk for a speaker"
+         :args {:speakerId {:type (non-null Int)}
+                :name {:type (non-null String)}
+                :videoUrl {:type String}
+                :slidesUrl {:type String}}
+         :resolve :resolve-add-talk}}}
