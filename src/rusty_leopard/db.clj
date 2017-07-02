@@ -1,9 +1,7 @@
 (ns rusty-leopard.db
   (:require [clojure.data.json :as json]
             [environ.core :refer [env]]
-            [rusty-leopard.core :as core]
             [yesql.core :refer [defqueries]]))
-
 ;; still need to put a password in for this
 ;; need to be sure the database is password protected!
 (def db-spec {:classname "org.postgresql.Driver"
