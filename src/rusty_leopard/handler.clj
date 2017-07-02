@@ -3,7 +3,11 @@
             [com.walmartlabs.lacinia.pedestal :as lacinia]
             [rusty-leopard.schema :refer [speakers-rate-schema]]))
 
-(def service (lacinia/pedestal-service (speakers-rate-schema) {:graphiql true}))
+(def service 
+  (lacinia/pedestal-service 
+    (speakers-rate-schema) 
+    {:graphiql true
+     :port (read-string (or (System/getenv "PORT") "3000"))}))
 
 (defonce runnable-service (server/create-server service))
 
