@@ -93,3 +93,14 @@
                     :id)]
     (assoc args :id talk_id
                 :speaker_id (:speakerId args))))
+
+
+(defn resolve-add-review
+  [context args _value]
+  (let [review_id (-> (add-review {:talk_id (:talkId args),
+                                   :rating (:rating args),
+                                   :comment (:comment args)})
+                      first
+                      :id)]
+    (assoc args :id review_id
+                :talk_id (:talkId args))))

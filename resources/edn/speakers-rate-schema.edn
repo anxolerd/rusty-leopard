@@ -47,4 +47,10 @@
                 :name {:type (non-null String)}
                 :videoUrl {:type String}
                 :slidesUrl {:type String}}
-         :resolve :resolve-add-talk}}}
+         :resolve :resolve-add-talk}
+  :addReview {:type :Review
+         :description "Review a talk of speaker"
+         :args {:talkId {:type (non-null Int)}
+                :rating {:type (non-null Int)}
+                :comment {:type String}}
+         :resolve :resolve-add-review}}}
