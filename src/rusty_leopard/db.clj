@@ -17,7 +17,7 @@
                             "/"
                             (or (:db-name env)
                                 (System/getenv "DB_NAME")))
-              :user (or (:db-username env)
+              :user (or (:db-user env)
                         (System/getenv "DB_USER"))
               :password (or (:db-password env)
                             (System/getenv "DB_PASSWORD"))})
