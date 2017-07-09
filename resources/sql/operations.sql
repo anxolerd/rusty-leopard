@@ -63,6 +63,38 @@ FROM review
 JOIN talk ON review.talk_id = talk.id
 WHERE talk.speaker_id = :speaker_id;
 
+-- name: speaker-exists?
+SELECT (EXISTS (
+  SELECT 1
+  FROM speaker
+  WHERE first_name = :first_name
+    AND last_name = :last_name
+    AND coalesce(middle_name = :middle_name, TRUE)
+)) AS result;
+
+
+-- name: speaker-exists-by-id?
+SELECT (EXISTS (
+  SELECT 1
+  FROM speaker
+  WHERE id = :id
+)) AS result;
+
+-- name: talk-exists?
+SELECT (EXISTS (
+  SELECT 1
+  FROM talk
+  WHERE speaker_id = :speaker_id
+    AND name = :name
+)) AS result;
+
+-- name: talk-exists-by-id?
+SELECT (EXISTS (
+  SELECT 1
+  FROM talk
+  WHERE id = :id
+)) AS result;
+
 -- name: add-speaker
 INSERT INTO speaker (first_name, middle_name, last_name)
 VALUES (:first_name, :middle_name, :last_name)

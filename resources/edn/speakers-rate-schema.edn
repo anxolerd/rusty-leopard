@@ -24,7 +24,16 @@
                     :talk {:type (non-null :Talk)
                            :resolve :resolve-review-talk}
                     :rating {:type (non-null Int)}
-                    :comment {:type String}}}}
+                    :comment {:type String}}}
+  :AddSpeakerResult {:description "Result of addSpeaker mutation"
+                     :fields {:speaker {:type :Speaker}
+                              :errors {:type (list String)}}}
+  :AddReviewResult {:description "Result of addReview mutation"
+                    :fields {:review {:type :Review}
+                             :errors {:type (list String)}}}
+  :AddTalkResult {:description "Result of addTalk mutation"
+                  :fields {:talk {:type :Talk}
+                           :errors {:type (list String)}}}}
  :queries
  {:talk {:type :Talk
          :description "Retrieve a single talk by its id"
@@ -38,22 +47,22 @@
              :description "Retrieve all speakers"
              :resolve :resolve-speakers}}
  :mutations
- {:addSpeaker {:type :Speaker
-            :description "Create a new speaker"
-            :args {:firstName {:type (non-null String)}
-                   :middleName {:type String}
-                   :lastName {:type (non-null String)}}
-            :resolve :resolve-add-speaker}
-  :addTalk {:type :Talk
-         :description "Create a talk for a speaker"
-         :args {:speakerId {:type (non-null Int)}
-                :name {:type (non-null String)}
-                :videoUrl {:type String}
-                :slidesUrl {:type String}}
-         :resolve :resolve-add-talk}
-  :addReview {:type :Review
-         :description "Review a talk of speaker"
-         :args {:talkId {:type (non-null Int)}
-                :rating {:type (non-null Int)}
-                :comment {:type String}}
-         :resolve :resolve-add-review}}}
+ {:addSpeaker {:type :AddSpeakerResult
+               :description "Create a new speaker"
+               :args {:firstName {:type (non-null String)}
+                      :middleName {:type String}
+                      :lastName {:type (non-null String)}}
+               :resolve :resolve-add-speaker}
+  :addTalk {:type :AddTalkResult
+            :description "Create a talk for a speaker"
+            :args {:speakerId {:type (non-null Int)}
+                   :name {:type (non-null String)}
+                   :videoUrl {:type String}
+                   :slidesUrl {:type String}}
+            :resolve :resolve-add-talk}
+  :addReview {:type :AddReviewResult
+              :description "Review a talk of speaker"
+              :args {:talkId {:type (non-null Int)}
+                     :rating {:type (non-null Int)}
+                     :comment {:type String}}
+              :resolve :resolve-add-review}}}

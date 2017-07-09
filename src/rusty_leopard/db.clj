@@ -82,28 +82,36 @@
   [context args _value]
   (let [names {:first_name (:firstName args),
                :middle_name (:middleName args),
-               :last_name (:lastName args)}]
+               :last_name (:lastName args)}
+        exists? (-> (speaker-exists? names) first :result)]
+    (if exists?
+        {:errors ["Speaker already exists"], :speaker nil}
         (let [speaker_id (-> (add-speaker names) first :id)]
-             (assoc args :id speaker_id))))
+             {:errors nil, :speaker (assoc args :id speaker_id)}))))
 
 (defn resolve-add-talk
   [context args _value]
-  (let [talk_id (-> (add-talk {:speaker_id (:speakerId args),
-                               :name (:name args),
-                               :video_url (:videoUrl args),
-                               :slides_url (:slidesUrl args)})
-                    first
-                    :id)]
-    (assoc args :id talk_id
-                :speaker_id (:speakerId args))))
-
+  (let [params {:speaker_id (:speakerId args),
+                :name (:name args),
+                :video_url (:videoUrl args),
+                :slides_url (:slidesUrl args)}]
+    (cond (-> (talk-exists? params) first :result)
+            {:errors ["Talk already exists"], :talk nil}
+          (not (-> (speaker-exists-by-id? {:id (:speaker_id params)}) first :result))
+            {:errors ["Speaker does not exist"], :talk nil}
+          :else
+            (let [talk_id (-> (add-talk params) first :id)]
+                 {:errors nil,
+                  :talk (assoc args :id talk_id :speaker_id (:speakerId args))}))))
 
 (defn resolve-add-review
   [context args _value]
-  (let [review_id (-> (add-review {:talk_id (:talkId args),
-                                   :rating (:rating args),
-                                   :comment (:comment args)})
-                      first
-                      :id)]
-    (assoc args :id review_id
-                :talk_id (:talkId args))))
+  (if (not (-> (talk-exists-by-id? {:id (:talkId args)}) first :result))
+    {:errors ["Talk does not exist"], :review nil}
+    (let [review_id (-> (add-review {:talk_id (:talkId args),
+                                     :rating (:rating args),
+                                     :comment (:comment args)})
+                     first
+                     :id)]
+         {:errors nil,
+          :review (assoc args :id review_id :talk_id (:talkId args))})))
