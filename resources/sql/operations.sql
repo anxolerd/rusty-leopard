@@ -13,6 +13,7 @@ LIMIT 1;
 SELECT
   id,
   first_name,
+  middle_name,
   last_name
 FROM speaker
 WHERE id = :id
@@ -51,6 +52,7 @@ WHERE talk_id = :talk_id;
 SELECT
   id,
   first_name,
+  middle_name,
   last_name
 FROM speaker;
 
@@ -62,8 +64,8 @@ JOIN talk ON review.talk_id = talk.id
 WHERE talk.speaker_id = :speaker_id;
 
 -- name: add-speaker
-INSERT INTO speaker (first_name, last_name)
-VALUES (:first_name, :last_name)
+INSERT INTO speaker (first_name, middle_name, last_name)
+VALUES (:first_name, :middle_name, :last_name)
 RETURNING id;
 
 -- name: add-talk

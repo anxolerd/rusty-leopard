@@ -36,6 +36,7 @@
 (defn speaker-from-db
   [speaker]
   (assoc speaker :firstName (:first_name speaker)
+                 :middleName (:middle_name speaker)
                  :lastName (:last_name speaker)))
 
 
@@ -79,14 +80,11 @@
 
 (defn resolve-add-speaker
   [context args _value]
-  (let [speaker_id (-> (add-speaker {:first_name (:firstName args),
-                                     :last_name (:lastName args)})
-                       first
-                       :id)]
-    (assoc {} :id speaker_id
-              :firstName (:firstName args)
-              :lastName (:lastName args))))
-
+  (let [names {:first_name (:firstName args),
+               :middle_name (:middleName args),
+               :last_name (:lastName args)}]
+        (let [speaker_id (-> (add-speaker names) first :id)]
+             (assoc args :id speaker_id))))
 
 (defn resolve-add-talk
   [context args _value]

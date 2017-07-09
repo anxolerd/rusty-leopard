@@ -1,8 +1,9 @@
 {:objects
  {:Speaker {:description "A speaker at conference"
-            :fields {:id {:type (non-null Int)} 
-                     :firstName {:type String}
-                     :lastName {:type String}
+            :fields {:id {:type (non-null Int)}
+                     :firstName {:type (non-null String)}
+                     :middleName {:type String}
+                     :lastName {:type (non-null String)}
                      :rating {:type Int
                               :resolve :resolve-speaker-rating}
                      :talks {:type (list :Talk)
@@ -40,6 +41,7 @@
  {:addSpeaker {:type :Speaker
             :description "Create a new speaker"
             :args {:firstName {:type (non-null String)}
+                   :middleName {:type String}
                    :lastName {:type (non-null String)}}
             :resolve :resolve-add-speaker}
   :addTalk {:type :Talk

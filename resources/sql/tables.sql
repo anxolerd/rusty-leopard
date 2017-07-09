@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS speaker CASCADE;
 CREATE TABLE speaker (
   id SERIAL PRIMARY KEY,
   first_name TEXT,
+  middle_name TEXT,
   last_name TEXT
 );
 
