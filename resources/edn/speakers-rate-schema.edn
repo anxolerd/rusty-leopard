@@ -3,7 +3,8 @@
             :fields {:id {:type (non-null Int)} 
                      :firstName {:type String}
                      :lastName {:type String}
-                     :rating {:type Int}
+                     :rating {:type Int
+                              :resolve :resolve-speaker-rating}
                      :talks {:type (list :Talk)
                              :resolve :resolve-speaker-talks}
                      :reviews {:type (list :Review)

@@ -21,5 +21,6 @@
                          :resolve-review-talk db/resolve-review-talk
                          :resolve-add-speaker db/resolve-add-speaker
                          :resolve-add-talk db/resolve-add-talk
-                         :resolve-add-review db/resolve-add-review})
+                         :resolve-add-review db/resolve-add-review
+                         :resolve-speaker-rating db/resolve-speaker-rating})
       schema/compile))

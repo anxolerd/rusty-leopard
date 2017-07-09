@@ -45,6 +45,10 @@
     (assoc speaker :firstName (:first_name speaker) 
                    :lastName (:last_name speaker))))
 
+(defn resolve-speaker-rating
+  [context args _value]
+  (-> (get-speaker-rating {:speaker_id (:id _value)}) first :rating))
+
 (defn resolve-talk-speaker
   [context args _value]
   (resolve-speaker context {:id (:speaker_id _value)} nil))

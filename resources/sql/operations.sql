@@ -16,6 +16,13 @@ SELECT id, talk_id, rating, comment FROM review WHERE talk_id = :talk_id;
 -- name: get-speakers
 SELECT id, first_name, last_name FROM speaker;
 
+-- name: get-speaker-rating
+SELECT
+  avg(rating) AS rating
+FROM review
+JOIN talk ON review.talk_id = talk.id
+WHERE talk.speaker_id = :speaker_id;
+
 -- name: add-speaker
 INSERT INTO speaker (first_name, last_name) VALUES (:first_name, :last_name) RETURNING id;
 
