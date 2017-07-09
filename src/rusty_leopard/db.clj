@@ -29,21 +29,25 @@
   [body]
   `(try ~body (catch Exception e# (throw (Exception.(:cause (Throwable->map (.getNextException e#))))))))
 
+(defn talk-from-db
+  [talk]
+  (assoc talk :videoUrl (:video_url talk) :slidesUrl (:slides_url talk)))
+
+(defn speaker-from-db
+  [speaker]
+  (assoc speaker :firstName (:first_name speaker)
+                 :lastName (:last_name speaker)))
+
+
 (defn resolve-talk
   [context args _value]
   (let [talk (first (check-error (get-talk {:id (:id args)})))]
-    ;; weirdly, snake_case names are not resolved properly O_o
-    ;; so turning them into camelCase names
-    (assoc talk :videoUrl (:video_url talk) 
-                :slidesUrl (:slides_url talk))))
+    (talk-from-db talk)))
 
 (defn resolve-speaker
   [context args _value]
   (let [speaker (first (check-error (get-speaker {:id (:id args)})))]
-    ;; weirdly, snake_case names are not resolved properly O_o
-    ;; so turning them into camelCase names
-    (assoc speaker :firstName (:first_name speaker) 
-                   :lastName (:last_name speaker))))
+    (speaker-from-db speaker)))
 
 (defn resolve-speaker-rating
   [context args _value]
@@ -55,10 +59,7 @@
 
 (defn resolve-speakers
   [context args _value]
-  (map 
-    (fn [s] (assoc s :firstName (:first_name s)
-                     :lastName (:last_name s)))
-    (get-speakers)))
+  (map speaker-from-db (get-speakers)))
 
 (defn resolve-speaker-talks
   [context args _value]
