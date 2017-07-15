@@ -11,11 +11,6 @@
 (defqueries "sql/operations.sql"
   {:connection db-spec})
 
-;; see: https://gist.github.com/alexpw/2166820
-(defmacro check-error
-  "Usage: (check-error (create-developer! (core/new-developer \"foo@bar.com\")))"
-  [body]
-  `(try ~body (catch Exception e# (throw (Exception.(:cause (Throwable->map (.getNextException e#))))))))
 
 (defn talk-from-db
   [talk]
@@ -30,13 +25,13 @@
 
 (defn resolve-talk
   [context args _value]
-  (let [talk (first (check-error (get-talk {:id (:id args)})))]
-    (talk-from-db talk)))
+  (let [talk (first (get-talk {:id (:id args)}))]
+    (if talk (talk-from-db talk) nil)))
 
 (defn resolve-speaker
   [context args _value]
-  (let [speaker (first (check-error (get-speaker {:id (:id args)})))]
-    (speaker-from-db speaker)))
+  (let [speaker (first (get-speaker {:id (:id args)}))]
+    (if speaker (speaker-from-db speaker) nil)))
 
 (defn resolve-speaker-rating
   [context args _value]
@@ -52,15 +47,15 @@
 
 (defn resolve-speaker-talks
   [context args _value]
-  (check-error (get-speaker-talks {:speaker_id (:id _value)})))
+  (get-speaker-talks {:speaker_id (:id _value)}))
 
 (defn resolve-speaker-reviews
   [context args _value]
-  (check-error (get-speaker-reviews {:speaker_id (:id _value)})))
+  (get-speaker-reviews {:speaker_id (:id _value)}))
 
 (defn resolve-talk-reviews
   [context args _value]
-  (check-error (get-talk-reviews {:talk_id (:id _value)})))
+  (get-talk-reviews {:talk_id (:id _value)}))
 
 (defn resolve-review-talk
   [context args _value]
