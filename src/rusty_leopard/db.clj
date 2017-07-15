@@ -5,20 +5,8 @@
 ;; still need to put a password in for this
 ;; need to be sure the database is password protected!
 (def db-spec {:classname "org.postgresql.Driver"
-              :subprotocol "postgresql"
-              :subname (str "//"
-                            (or (:db-host env)
-                                (System/getenv "DB_HOST"))
-                            ":"
-                            (or (:db-port env)
-                                (System/getenv "DB_PORT"))
-                            "/"
-                            (or (:db-name env)
-                                (System/getenv "DB_NAME")))
-              :user (or (:db-user env)
-                        (System/getenv "DB_USER"))
-              :password (or (:db-password env)
-                            (System/getenv "DB_PASSWORD"))})
+              :connection-uri (or (:db-uri env)
+                              (System/getenv "JDBC_DATABASE_URL"))})
 
 (defqueries "sql/operations.sql"
   {:connection db-spec})
